@@ -29,4 +29,4 @@ jobs:
       with:
         app-name: '${{ secrets.AZURE_APP_NAME }}' # replace this with your App Service's name
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }} # Azure App Service publish profile, stored as a GitHub secret
-        package: '.' # path to the built app's directory
+        package: './backend' # path to the built app's directory
