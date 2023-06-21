@@ -20,9 +20,9 @@ jobs:
       working-directory: ./backend
       run: npm install
 
-    - name: Build
-      working-directory: ./backend
-      run: npm run build  # adjust this if your build command is different
+    # - name: Build
+    #   working-directory: ./backend
+    #   run: npm run build  # adjust this if your build command is different
   
     - name: Deploy to Azure App Service
       uses: azure/webapps-deploy@v2
