@@ -10,7 +10,7 @@ class MongoDB {
         try {
             await this.client.connect();
             console.info("Successfully connect to mongo");
-
+            
             this.db = this.client.db("db");
             // const collection = this.db.collection("restaurant");
             
@@ -63,17 +63,19 @@ class MongoDB {
             //     star: 1,
             //     imgs: []
             // };
+
+            // const collection = this.db.collection("restaurant");
             
 
-            // remove all data
-            await collection.deleteMany({});
+            // // remove all data
+            // await collection.deleteMany({});
 
-            const result2 = await collection.insertOne(doc);
-            console.log("Inserted at " + result2.insertedId);
+            // const result2 = await collection.insertOne(doc);
+            // console.log("Inserted at " + result2.insertedId);
 
             
-            const result3 = await collection.insertOne(doc2);
-            console.log("Inserted at " + result3.insertedId);
+            // const result3 = await collection.insertOne(doc2);
+            // console.log("Inserted at " + result3.insertedId);
             
             // const result = await collection.find({name: "IUS 식당"}).toArray();
             // console.log(result);
@@ -99,6 +101,14 @@ class MongoDB {
             console.log("---------- Error stacks ----------");
             console.log(err);
         }
+    }
+    
+    static async addData(collectionName, json) {
+        if (!this.db)
+            throw "There are not able database server!";
+
+        const collection = this.db.collection(collectionName);
+        collection.insertOne(json);
     }
 };
 
