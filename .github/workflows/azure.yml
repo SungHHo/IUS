@@ -17,7 +17,7 @@ jobs:
         node-version: '18' # adjust this to your project's Node.js version
 
     - name: Install dependencies
-      run: npm ci
+      run: npm install
 
     - name: Build
       working-directory: ./backend
