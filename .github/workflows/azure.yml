@@ -22,6 +22,7 @@ jobs:
       run: npm ci
 
     - name: Build
+      working-directory: ./backend
       run: npm run build  # adjust this if your build command is different
   
     - name: Deploy to Azure App Service
