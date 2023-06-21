@@ -12,7 +12,7 @@ function SearchBar({ setQuery }) {
   return (
     <div id="search-bar">
       <div class="icon">#</div>
-      <input autoFocus={true} type='text' onChange={queryFix}/>
+      <input type='text' onChange={queryFix}/>
     </div>
   )
 }

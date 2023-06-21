@@ -3,19 +3,14 @@ import Auth from './auth/Auth';
 
 import "../styles/SideBar.css";
 
-let stid = null;
 
 function SideBar ({ openSideBar }) {
     const sideBarRef = useRef();
     const [auth, setAuth] = useState();
 
-    const animate = () => {
-      clearTimeout(stid);
-      
+    const animate = () => {      
       if (openSideBar) {
-        stid = setTimeout(() => {
-          sideBarRef.current.classList.add('open');
-        }, 200);
+        sideBarRef.current.classList.add('open');
       }
       else {
         sideBarRef.current.classList.remove('open');
@@ -35,7 +30,7 @@ function SideBar ({ openSideBar }) {
       <section ref={sideBarRef} id='sidebar-container'>
         <div className='background'></div>
         <ul >
-          <li onClick={openAuth}>sign in</li>
+          <li className='signIn' onClick={openAuth}>sign in</li>
         </ul>
 
         {auth ?? <></>}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import SideBar from './SideBar';
 import NavBar from './NavBar';
 import MainView from './main/MainView';
@@ -14,7 +14,7 @@ function Page() {
 
       <MainView />
 
-      {/* <SideBar openSideBar={openSideBar}/> */}
+      <SideBar openSideBar={openSideBar}/>
     </div>
   );
 }

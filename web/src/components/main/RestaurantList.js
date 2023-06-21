@@ -2,12 +2,19 @@ import React from 'react'
 
 import "../../styles/RestaurantList.css";
 
-function RestaurantList({ restaurantList, setSelectRestaurant }) {
+function RestaurantList({ 
+  restaurantList, 
+  setSelectRestaurant,
+  setOpenRestaurant
+}) {
   return (
     <div id="resrestaurant-list">
       <ul>
         {restaurantList.map((restaurant, index) => 
-          <li key={index} onClick={() => setSelectRestaurant(restaurant)}>
+          <li key={index} onClick={() => {
+            setSelectRestaurant(restaurant);
+            setOpenRestaurant(true);
+          }}>
             <div className="thumbnail">
               <img src={restaurant.thumbnailUrl} alt={`${restaurant.name}-thumbnail`}/>
             </div>
@@ -16,7 +23,7 @@ function RestaurantList({ restaurantList, setSelectRestaurant }) {
               <p className='star'>5.0/{restaurant.star}</p>
               <p className='address'>{restaurant.address}</p>
             </div>
-            <div>P</div>
+            <div></div>
           </li>
         )}
       </ul>

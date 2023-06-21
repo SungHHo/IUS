@@ -39,7 +39,6 @@
 
 .bottom-list-container ul {
     flex: 1;
-    overflow-y: scroll;
 }
 .bottom-list-container li {
     --size: 10vh;

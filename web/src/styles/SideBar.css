@@ -6,6 +6,7 @@
     height: 100%;
     z-index: 999;
     display: none;
+    transition: ease 1s;
 }
 
 #sidebar-container.open {
@@ -32,8 +33,12 @@
     color: white;
     width: 30%;
     height: 100%;
-
 }
 #sidebar-container li {
     cursor: pointer;
+}
+
+#sidebar-container .signIn {
+    padding: 1rem;
+    font-size: 1.5rem;
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import RestaurantList from './RestaurantList';
@@ -21,12 +21,13 @@ for (let i = 0 ; i < 20 ; i++) {
 }
 
 function MainView() {
-  const { latitude, longitude } = useParams({ latitude: 37.541, longitude: 126.986});
+  const { latitude, longitude } = useParams();
   const [openMap, setOpenMap] = useState(false);
   const [query, setQuery] = useState('');
   const [restaurantList, setRestaurantList] = useState([]); 
   const [selectRestaurant, setSelectRestaurant] = useState();
   const [openRestaurant, setOpenRestaurant] = useState(false);
+  const overlayRef = useRef(null);
 
   useEffect(() => {
     setRestaurantList(dummy);
@@ -38,18 +39,19 @@ function MainView() {
     // }
 
     // getNearestRestaurant().then(data => setRestaurantList(data));
-  }, [query, selectRestaurant]);
+    if (openMap) setSelectRestaurant(undefined);
+  }, [query, openMap, selectRestaurant, openRestaurant, selectRestaurant]);
 
   return (
     <main id="main">
       <section className='search-container'>
-        <SearchBar />
+        <SearchBar setQuery={setQuery} />
       </section>
 
       <section className="middle-container">
-        <div>Hello, user!</div>
-        <div class="map-icon">
-          <span>Map</span>
+        <div>근처의 식당들입니다.</div>
+        <div onClick={() => setOpenMap(!openMap)} className="map-icon">
+          <img src="map.png" alt=""/>
         </div>
       </section>
 
@@ -57,12 +59,31 @@ function MainView() {
         <RestaurantList
           restaurantList={restaurantList}
           setSelectRestaurant={setSelectRestaurant}
+          setOpenRestaurant={setOpenRestaurant}
         />
       </section>
 
       <section className='ad-container'>
         <Adver />
       </section>
+
+      <div ref={overlayRef} className={"overlay " + (openMap ? "open map" : "" + (openRestaurant ? "open restaurant" : ""))} >
+        <MapView 
+        latitude={latitude ?? 37.541}
+        longitude={longitude ?? 126.986}
+        radius={300} 
+        restaurantList={restaurantList}  
+        />
+
+        {selectRestaurant && <Restaurant selectRestaurant={selectRestaurant} />}
+
+        <div className={'blur' + ((openMap || openRestaurant)? "active" : "")}></div>
+
+        <div onClick={() => {
+          setOpenMap(false);
+          setOpenRestaurant(false);
+        }} className='close-btn'>close</div>
+      </div>
     </main>
   )
 }
@@ -75,12 +96,7 @@ export default MainView
 // <Adver />
 
 // {/* <div class="ovrelay">
-//   <MapView 
-//     latitude={latitude}
-//     longitude={longitude}
-//     radius={300} 
-//     restaurantList={restaurantList}  
-//     />
+
 
 //   <Restaurant data={selectRestaurant} />
 // </div> */}}

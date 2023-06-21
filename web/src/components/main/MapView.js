@@ -60,10 +60,10 @@ const MapView = ({
   
 
   return (
-    <div 
-      id="map" 
-      ref={mapElement}
-      style={{ width: "100%", height: "100%" }}
+      <div 
+        id="map" 
+        ref={mapElement}
+        style={{ width: "100%", height: "100%" }}
       />
   );
 
