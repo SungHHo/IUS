@@ -2,7 +2,7 @@
 
 ## 팀명
 
- International Unified Squad
+International Unified Squad
 
 ## 제품명
 
