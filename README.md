@@ -1,6 +1,6 @@
-# `{{ International Unified Squad }}` - `{{ 대밥 }}`
+# International Unified Squad - 대밥
 
-해커그라운드 해커톤에 참여하는 `{{ International Unified Squad }}` 팀의 `{{ 대밥 }}`입니다.
+해커그라운드 해커톤에 참여하는 International Unified Squad 팀의 '대밥'입니다.
 
 ## 참고 문서
 
