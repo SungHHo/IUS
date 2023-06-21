@@ -1,5 +1,20 @@
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
 
+:root {
+    --brand-color1: #9D3121;
+
+    --navbar-height: 18vh;
+    --navbar-icon-size: 7vh;
+    --bottom-list-height: 6.5vh;
+
+    --animation-duration: 500ms;
+}
 * {
     font-family: "Noto Sans KR";
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+li {
+    display: block;
 }
