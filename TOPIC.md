@@ -1,4 +1,4 @@
-# `{{ 팀 이름 }}`팀 해커톤 주제
+# `{{ International Unified Squad }}`팀 해커톤 주제
 
 ## 팀명
 
