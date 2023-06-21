@@ -16,12 +16,12 @@ jobs:
       with:
         node-version: '18' # adjust this to your project's Node.js version
 
-    - name: Install dependencies at Frontend
-      working-directory: ./web
-      run: npm install -g serve && npm run build
+    # - name: Install dependencies at Frontend
+    #   working-directory: ./web
+    #   run: npm install -g serve && npm run build
 
-    - name: Move build folder
-      run: mv ./web/build ./backend/public
+    # - name: Move build folder
+    #   run: mv ./web/build ./backend/public
     
     - name: Install dependencies at Backend
       working-directory: ./backend
