@@ -5,14 +5,14 @@ Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
 
 $form = New-Object System.Windows.Forms.Form
-$form.Text = 'Azure ���ҽ� �׷��� �Է����ּ���.'
+$form.Text = 'Input your Azure Resource Group.'
 $form.Size = New-Object System.Drawing.Size(400,100)
 $form.StartPosition = 'CenterScreen'
 
 $okButton = New-Object System.Windows.Forms.Button
 $okButton.Location = New-Object System.Drawing.Point(310, 20)
 $okButton.Size = New-Object System.Drawing.Size(70,20)
-$okButton.Text = 'Ȯ��'
+$okButton.Text = 'Ok'
 $okButton.DialogResult = [System.Windows.Forms.DialogResult]::OK
 $form.AcceptButton = $okButton
 $form.Controls.Add($okButton)
@@ -35,14 +35,14 @@ if ($result -eq [System.Windows.Forms.DialogResult]::OK)
 
 
     $form = New-Object System.Windows.Forms.Form
-    $form.Text = 'Github ���̵� �Է����ּ���.'
+    $form.Text = 'Input your Github ID'
     $form.Size = New-Object System.Drawing.Size(400,100)
     $form.StartPosition = 'CenterScreen'
 
     $okButton = New-Object System.Windows.Forms.Button
     $okButton.Location = New-Object System.Drawing.Point(310, 20)
     $okButton.Size = New-Object System.Drawing.Size(70,20)
-    $okButton.Text = 'Ȯ��'
+    $okButton.Text = 'Ok'
     $okButton.DialogResult = [System.Windows.Forms.DialogResult]::OK
     $form.AcceptButton = $okButton
     $form.Controls.Add($okButton)
@@ -63,10 +63,10 @@ if ($result -eq [System.Windows.Forms.DialogResult]::OK)
         az login
         az group create --name $AZURE_RESOURCE_GROUP --location $AZURE_LOCATION
 
-        # App Service Plan ����
+        # App Service Plan Create
         az appservice plan create --name $AZURE_ENV_NAME-plan --resource-group $AZURE_RESOURCE_GROUP --location $AZURE_LOCATION --sku B1
 
-        # Web App ����
+        # Web App Create
         az webapp create --name $AZURE_ENV_NAME --plan $AZURE_ENV_NAME-plan --resource-group $AZURE_RESOURCE_GROUP
         
         timeout 5
