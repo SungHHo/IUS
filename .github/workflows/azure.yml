@@ -15,9 +15,10 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: '18' # adjust this to your project's Node.js version
+
     - name: Install dependencies at Frontend
       working-directory: ./web
-      run: npm install && npm run build
+      run: npm install -g serve && npm run build
 
     - name: Move build folder
       run: mv ./web/build ./backend/public
