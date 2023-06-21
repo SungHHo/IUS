@@ -6,7 +6,7 @@ International Unified Squad
 
 ## 제품명
 
-### 대밥, 특색있는 맛집 저희가 펼쳐드릴게요
+### 대밥
 
 ## 참가 동기
 
