@@ -1,0 +1,38 @@
+name: Azure deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18' # adjust this to your project's Node.js version
+    - name: Install dependencies at Frontend
+      working-directory: ./web
+      run: npm install && npm run build
+
+    - name: Move build folder
+      run: mv ./web/build ./backend/public
+    
+    - name: Install dependencies at Backend
+      working-directory: ./backend
+      run: npm install
+
+    # - name: Build
+    #   working-directory: ./backend
+    #   run: npm run build  # adjust this if your build command is different
+  
+    - name: Deploy to Azure App Service
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: '${{ secrets.AZURE_APP_NAME }}' # replace this with your App Service's name
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }} # Azure App Service publish profile, stored as a GitHub secret
+        package: './backend' # path to the built app's directory
