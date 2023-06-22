@@ -28,7 +28,7 @@ module.exports = {
         let y = req.body.y;
         let distance = req.body.distance;
 
-        if (!x || !y || distance)
+        if (!x || !y || !distance)
             return res.json({
                 failed: true,
                 msg: "BAD REQUEST"
