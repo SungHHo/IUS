@@ -345,4 +345,4 @@ def home():
 threading.Thread(target=main).start()
 
 print("Starting listening server!")
-app.run(host='0.0.0.0', port=8000)
+server_app.run(host='0.0.0.0', port=8000)
