@@ -42,6 +42,9 @@ import keras.backend as K
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud, STOPWORDS
 from sklearn.model_selection import train_test_split
+from flask import Flask
+
+server_app = Flask(__name__)
 
 # This is transformer Method for input data: Text
 def fit_transform(tokenizer, text):
@@ -334,6 +337,10 @@ def main():
     dataloader()
     print("DONE")
     
+@app.route('/')
+def home():
+    return "Hello, World!"
 
 if __name__ == "__main__":
     main()
+    app.run(host='0.0.0.0', port=5000)
