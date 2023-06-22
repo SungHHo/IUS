@@ -17,7 +17,7 @@ jobs:
         node-version: '18' # adjust this to your project's Node.js version
 
     - name: Install dependencies at Frontend and Move to public folder
-      run: ./script.sh
+      run: chmod +x ./script.sh && ./script.sh
 
     # - name: Move build folder
     #   run: mv ./web/build ./backend/public
