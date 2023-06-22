@@ -6,11 +6,10 @@ import env from '../../utils/var';
 
 const Tag = ({ tagName }) => <div className={styles.tag}>{tagName}</div>
 
-const RestItem = ({ setSelectRestaurant, restaurant }) => (
+const RestItem = ({ setPageId, setSelectRestaurant, restaurant }) => (
     <div className={styles.item} onClick={() => {
-        if (localStorage.getItem("token")) {
-                setSelectRestaurant(restaurant);
-            }
+        setSelectRestaurant(restaurant);
+        setPageId("select");
         }}>
         <div className={styles.overline}></div>
 
@@ -47,6 +46,7 @@ const TermItem = ({ term }) => (
 function NearRestList({
     lati,
     long,
+    setPageId,
     setSelectRestaurant, 
     radius, 
     restaurants
@@ -58,7 +58,7 @@ function NearRestList({
     <section className={styles.container}>
         <div className={styles.section}>
             <h2 className={styles.current}>
-            현재 {"~~주소"}
+            현재
             </h2>
 
             <div className={styles.distance}>
@@ -76,9 +76,9 @@ function NearRestList({
                     const distance = getDistance(res.x, res.y, lati, long);
 
                     if ((!prevDistance && distance < t))
-                        return <RestItem setSelectRestaurant={setSelectRestaurant} key={idx} restaurant={res} />;
+                        return <RestItem setPageId={setPageId} setSelectRestaurant={setSelectRestaurant} key={idx} restaurant={res} />;
                     else if (prevDistance && distance < t && distance >= prevDistance) 
-                        return <RestItem setSelectRestaurant={setSelectRestaurant} key={idx} restaurant={res} />;
+                        return <RestItem setPageId={setPageId} setSelectRestaurant={setSelectRestaurant} key={idx} restaurant={res} />;
                 })
                 
                 if (idx === 0) prevDistance = t;

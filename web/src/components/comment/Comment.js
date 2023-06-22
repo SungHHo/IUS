@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 import styles from "./Comment.module.css";
 import env from '../../utils/var';
 
 const Comment = ({ selectRestarant, setPageId }) => {
+  const inputRef = useRef(null)
   const [message, setMessage] = useState('');
 
   const submitListener = (e) => {
@@ -23,7 +24,14 @@ const Comment = ({ selectRestarant, setPageId }) => {
     })
     .then(res => res.json())
     .then(data => {
-      console.log(data);
+      if ('failed' in data) {
+        alert(data.msg);
+        inputRef.value = '';
+        setMessage('');
+      }
+      else if ('success' in data) {
+        setPageId("main")
+      }
     });
   }
 
@@ -44,7 +52,7 @@ const Comment = ({ selectRestarant, setPageId }) => {
         <form onSubmit={submitListener}>
           <div className={styles.inputContainer}>
               <label htmlFor="message">Message</label>
-              <input className={styles.input} name='message' type="text" placeholder="댓글 남기기" value={message} onChange={(e) => setMessage(e.target.value)} />
+              <input ref={inputRef} className={styles.input} name='message' type="text" placeholder="댓글 남기기" value={message} onChange={(e) => setMessage(e.target.value)} />
           </div>
 
           <div className={styles.buttonContainer}>

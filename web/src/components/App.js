@@ -47,8 +47,10 @@ function App() {
   const [ selectRestarant, setSelectRestaurant ] = useState(undefined);
 
   useEffect(() => {
+    setAuth(localStorage.getItem("token") !== null)
+
     getFetchedRestaurants(lati, long, setRestaurants);
-  }, []);
+  }, [auth, pageId]);
 
   return (
     <div className={styles.app}>
@@ -68,6 +70,7 @@ function App() {
         <NearRestList
           lati={lati}
           long={long}
+          setPageId={setPageId}
           setSelectRestaurant={setSelectRestaurant}
           radius={env.DEFAULT_DISTANCE}
           restaurants={restaurants} 
@@ -82,8 +85,8 @@ function App() {
       />}
       
       {pageId === "auth" && <Auth setAuth={setAuth} setPageId={setPageId}/>}
-      {(pageId === "form" && selectRestarant)&& <Comment selectRestarant={selectRestarant} setPageId={setPageId}/>}
-      {pageId === "select" && <Select setPageId={setPageId} selectRestarant={selectRestarant} />}
+      {(pageId === "form")&& <Comment selectRestarant={selectRestarant} setPageId={setPageId}/>}
+      {(pageId === "select") && <Select setPageId={setPageId} selectRestarant={selectRestarant} />}
     </div>
   );
 }

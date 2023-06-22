@@ -22,3 +22,6 @@
 li {
     display: block;
 }
+.rotate {
+    transform: rotate(45deg);
+}
