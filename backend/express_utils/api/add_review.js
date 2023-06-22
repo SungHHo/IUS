@@ -1,5 +1,5 @@
 const express = require("express");
-const database = require("../../utils/database");
+const MongoDB = require("../../utils/database");
 
 module.exports = {
     route: "add_review",
