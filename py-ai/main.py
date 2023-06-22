@@ -191,7 +191,7 @@ def papago_api(dat):
 
 def autodetector(arr):
     count = 0
-    bad_words = ['really bad', 'very bad', 'not good', 'so bad',
+    bad_words = ['really bad', 'very bad', 'not good', 'so bad', 'doesn\'t taste good',
                  'bad', 'suck', 'hate', 'horrible', 'so suck',
                  'awful', 'terrible', 'disgusting',
                  'mediocre', 'disappointing', 'horrible', 
@@ -295,14 +295,14 @@ def dataloader():
 
     while True:
         try:
-            
+
             comment_list = getCommentsFromMongo()
             if copied_comment_list != comment_list:
-                
+
                 arr1, arr2 = getCommentsFromMongoUserRate()
                 updateMod(calRateForUser(arr1, arr2, model, tok), dataloaderll())
                 print("UPDATE USER FLAVOR DATA ------------------------- []")
-                
+
                 for i in range(len(comment_list)):
                     arrs = []
                     for j in range(len(comment_list[i][1])):
@@ -312,10 +312,10 @@ def dataloader():
                     updateRateUser(score, comment_list[i][0])
                     print('\033[96m' + 'Updating --------------------------------------------' + str(comment_list[i][0]) + '\033[0m')
                     print('\033[96m' + 'Updating --------------------------------------- Star' + str(comment_list[i][2]) + '\033[0m')
-                    
+
                     now = str(datetime.now())
                     print('\033[96m' + 'TIME: '+ now + str(comment_list[i][2]) + '\033[0m')
-                    
+
             else:
                 print('\033[96m' + 'No Change Found ----------------------------------- [PASS]' + str(comment_list[i][2]) + '\033[0m')
                 now = str(datetime.now())
