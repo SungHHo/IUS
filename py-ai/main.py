@@ -342,6 +342,7 @@ def main():
 def home():
     return "Hello, World!"
 
-if __name__ == "__main__":
-    threading.Thread(target=main).start()
-    app.run(host='0.0.0.0', port=8000)
+threading.Thread(target=main).start()
+
+print("Starting listening server!")
+app.run(host='0.0.0.0', port=8000)
