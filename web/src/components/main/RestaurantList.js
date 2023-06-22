@@ -16,7 +16,7 @@ function RestaurantList({
             setOpenRestaurant(true);
           }}>
             <div className="thumbnail">
-              <img src={restaurant.thumbnailUrl} alt={`${restaurant.name}-thumbnail`}/>
+              <img src={restaurant.img} alt={`${restaurant.name}-thumbnail`}/>
             </div>
             <div className="text-container">
               <h3 className='name'>{restaurant.name}</h3>

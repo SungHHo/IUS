@@ -29,9 +29,9 @@ function Restaurant({ selectRestaurant }) {
   }, [selectRestaurant]);
   return (
     <section id="select-restaurant">
-      <img src={selectRestaurant?.thumbnailUrl} alt="thmubnail"/>
+      <img src={selectRestaurant?.img} alt="thmubnail"/>
 
-      <div class="text-container">
+      <div className="text-container">
         <h1>{selectRestaurant?.name}</h1>
         <p>{selectRestaurant?.address}</p>
       </div>

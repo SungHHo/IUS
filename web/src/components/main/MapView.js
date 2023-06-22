@@ -7,6 +7,7 @@ const MapView = ({
   restaurantList, 
 }) => {
   const mapElement = useRef(null);
+  const markerList = [];
 
   useEffect(() => {
     const { naver } = window;
@@ -23,13 +24,15 @@ const MapView = ({
         position: naver.maps.Position.TOP_RIGHT,
       },
     };
+
     const map = new naver.maps.Map(mapElement.current, mapOptions);
     
-    new naver.maps.Marker({
+    markerList.push(new naver.maps.Marker({
       position: location,
       map,
-    });
-    
+      shape: ""
+    }))
+
     new naver.maps.Circle({
       map: map,
       center: location,
@@ -44,19 +47,21 @@ const MapView = ({
     
     restaurantList.forEach(restaurant => {
       const rloc = new naver.maps.LatLng(restaurant.x, restaurant.y);
-
-      new naver.maps.Marker({
+      
+      const marker = new naver.maps.Marker({
         position: rloc,
         map
       })
+
+      markerList.push(marker)
     })
 
-    naver.maps.Event.addDOMListener(mapElement.current, 'mouseup', async () => {
-      // const getNearestRestaurant = await getData();
-      // setRestaurantList(getNearestRestaurant)
-      console.log("asd")
-    });
-  }, []);
+    markerList.forEach(marker => {
+      naver.maps.Event.addListener(marker, "click", function(e) {
+        var latlng = e.coord;
+      });
+    })
+  }, [restaurantList]);
   
 
   return (

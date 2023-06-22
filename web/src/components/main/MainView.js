@@ -8,19 +8,10 @@ import Restaurant from './Restaurant';
 
 import "../../styles/MainView.css";
 
-const dummy = [];
-for (let i = 0 ; i < 20 ; i++) {
-  dummy.push({
-    name: "마포갈매기",
-    address: "서울특별시 마포구 동교동 155-27",
-    thumbnailUrl: "https://taghere.s3.ap-northeast-2.amazonaws.com/642665c713b44f29ac6af697/642665c713b44f29ac6af697_1681455070923-thum.png",
-    star: 4.5,
-    x: 37.556602,
-    y: 126.925718
-  });
-}
+const DEFAULT_DISTANCE = 300;
 
 function MainView() {
+  const mainRef = useRef(null);
   const { latitude, longitude } = useParams();
   const [openMap, setOpenMap] = useState(false);
   const [query, setQuery] = useState('');
@@ -30,20 +21,31 @@ function MainView() {
   const overlayRef = useRef(null);
 
   useEffect(() => {
-    setRestaurantList(dummy);
-    // const getNearestRestaurant = async () => {
-    //   const response = await fetch(`http://localhost:5000/api/v1/restaurant?query=${query}&lati=${latitude}&long=${longitude}`);
-    //   const data = await response.json();
+    setRestaurantList([]);
+    const getNearestRestaurant = async () => {
+      const response = await fetch(`http://localhost:3030/api/restaurant`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          x: 35.9071971,
+          y: 128.613,
+          distance: DEFAULT_DISTANCE
+        })
+      });
+      const data = await response.json();
 
-    //   return data;
-    // }
+      return data;
+    }
 
-    // getNearestRestaurant().then(data => setRestaurantList(data));
     if (openMap) setSelectRestaurant(undefined);
+
+    getNearestRestaurant().then(data => setRestaurantList(data));
   }, [query, openMap, selectRestaurant, openRestaurant, selectRestaurant]);
 
   return (
-    <main id="main">
+    <main ref={mainRef} id="main">
       <section className='search-container'>
         <SearchBar setQuery={setQuery} />
       </section>
@@ -68,12 +70,16 @@ function MainView() {
       </section>
 
       <div ref={overlayRef} className={"overlay " + (openMap ? "open map" : "" + (openRestaurant ? "open restaurant" : ""))} >
-        <MapView 
-        latitude={latitude ?? 37.541}
-        longitude={longitude ?? 126.986}
-        radius={300} 
-        restaurantList={restaurantList}  
-        />
+        {openMap && 
+          <MapView 
+          // latitude={latitude ?? 37.541}
+          // longitude={longitude ?? 126.986}
+          latitude={latitude ?? 35.9071971} 
+          longitude={longitude ?? 128.613}
+          radius={DEFAULT_DISTANCE} 
+          restaurantList={restaurantList}  
+          />
+        }
 
         {selectRestaurant && <Restaurant selectRestaurant={selectRestaurant} />}
 
@@ -82,7 +88,7 @@ function MainView() {
         <div onClick={() => {
           setOpenMap(false);
           setOpenRestaurant(false);
-        }} className='close-btn'>close</div>
+        }} className='close-btn'>닫기</div>
       </div>
     </main>
   )

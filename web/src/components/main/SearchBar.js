@@ -11,7 +11,7 @@ function SearchBar({ setQuery }) {
 
   return (
     <div id="search-bar">
-      <div class="icon">#</div>
+      <div className="icon">#</div>
       <input type='text' onChange={queryFix}/>
     </div>
   )
