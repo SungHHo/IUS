@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(express.static(__dirname + "/public"));
 
 const api_router = require("./express_utils/api");
-app.use(api_router);
+app.use("/api/", api_router);
 
 app.listen(PORT, () => {
     console.info("http://localhost:" + PORT);
@@ -25,6 +25,17 @@ app.get("*", (req, res) => {
 
 const connectToDB = async () => {
     await MongoDB.connect();
+
+    await MongoDB.updateData("restaurant", {
+        name: "식육식당"
+    }, {
+        $push: {
+            comments: {
+                user_id: "testuser",
+                comment: "말도안되게 맛있다"
+            }
+        }
+    });
 };
 connectToDB();
 
