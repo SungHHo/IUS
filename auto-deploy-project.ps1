@@ -97,7 +97,7 @@ if ($result -eq [System.Windows.Forms.DialogResult]::OK)
         az webapp config appsettings set --name $AZURE_ENV_NAME_PYTHON --resource-group $AZURE_RESOURCE_GROUP --settings WEBSITE_NODE_DEFAULT_VERSION=18
         
         # Set App Startup-File
-        az webapp config set --name $AZURE_ENV_NAME_PYTHON --resource-group $AZURE_RESOURCE_GROUP --startup-file "py main.py"
+        az webapp config set --name $AZURE_ENV_NAME_PYTHON --resource-group $AZURE_RESOURCE_GROUP --startup-file "python main.py"
 
         # Github Workflows Settings
         az webapp deployment list-publishing-profiles --name $AZURE_ENV_NAME_PYTHON --resource-group $AZURE_RESOURCE_GROUP --xml > publish_profile_python.xml
