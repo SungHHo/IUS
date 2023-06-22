@@ -25,9 +25,6 @@ app.get("*", (req, res) => {
 
 const connectToDB = async () => {
     await MongoDB.connect();
-    await MongoDB.addData("restaurant", {
-
-    });
 };
 connectToDB();
 
