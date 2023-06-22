@@ -104,11 +104,29 @@ class MongoDB {
     }
     
     static async addData(collectionName, json) {
-        if (!this.db)
-            throw "There are not able database server!";
+        try {
+            if (!this.db)
+                throw "There are not able database server!";
 
-        const collection = this.db.collection(collectionName);
-        collection.insertOne(json);
+            const collection = this.db.collection(collectionName);
+            collection.insertOne(json);
+        } catch (err) {
+            console.log("---------- Error stacks ----------");
+            console.log(err);
+        }
+    }
+
+    static async updateData(collectionName, json, replaced) {
+        try {
+            if (!this.db)
+                throw "There are not able database server!";
+            
+            const collection = this.db.collection(collectionName);
+            await collection.updateMany(json, replaced);
+        } catch (err) {
+            console.log("---------- Error stacks ----------");
+            console.log(err);
+        }
     }
 };
 

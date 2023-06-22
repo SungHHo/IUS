@@ -13,7 +13,6 @@ const api_router = require("./express/router");
 app.use("/api/", api_router);
 
 app.listen(PORT, () => {
-    console.info("http://localhost:" + PORT + "?test=admin");
     console.log("Listeneing at " + PORT);
 });
 
