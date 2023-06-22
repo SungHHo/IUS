@@ -14,7 +14,7 @@ module.exports = {
                 failed: true
             });
 
-        let name = await database.addData("accounts", {nickname: id});
+        let name = await database.getData("accounts", {nickname: nickname});
         if (name.length != 0)
             return res.json({
                 failed: true,
@@ -29,7 +29,7 @@ module.exports = {
             flavor: 0
         };
 
-        let arr = await database.addData("accounts", {user_id: id});
+        let arr = await database.getData("accounts", {user_id: id});
         if (arr.length == 0) {
             await database.addData("accounts", user);
             return res.json({
