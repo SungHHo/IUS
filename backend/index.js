@@ -2,10 +2,16 @@ require("dotenv").config();
 
 const axios = require("axios");
 const express = require("express");
+const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT ?? 3030;
 
 const MongoDB = require("./utils/database");
+
+// while deving
+app.use(cors({
+    origin: '*', // 모든 출처 허용 옵션. true 를 써도 된다.
+}));
 
 app.use(express.json());
 app.use(express.static(__dirname + "/public"));
