@@ -1,11 +1,12 @@
-import { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 
-const MapView = ({ 
-  latitude,
-  longitude,
+function MapView({ 
+  lati,
+  long,
   radius,
-  restaurantList, 
-}) => {
+  restaurants,
+  setRestaurants,
+}) {
   const mapElement = useRef(null);
   const markerList = [];
 
@@ -14,8 +15,9 @@ const MapView = ({
 
     if (!mapElement.current || !naver) return;
 
-    const location = new naver.maps.LatLng(latitude, longitude);
+    const location = new naver.maps.LatLng(lati, long);
     const mapOptions = {
+      zoom: 14,
       center: location,
       scaleControl: true,
       mapTypeControl: false,
@@ -45,7 +47,7 @@ const MapView = ({
       fillOpacity: 0.3
     });
     
-    restaurantList.forEach(restaurant => {
+    restaurants.forEach(restaurant => {
       const rloc = new naver.maps.LatLng(restaurant.x, restaurant.y);
       
       const marker = new naver.maps.Marker({
@@ -61,7 +63,11 @@ const MapView = ({
         var latlng = e.coord;
       });
     })
-  }, [restaurantList]);
+
+    return () => {
+      while(markerList.length > 0) markerList.pop();
+    }
+  }, [restaurants]);
   
 
   return (
@@ -71,7 +77,6 @@ const MapView = ({
         style={{ width: "100%", height: "100%" }}
       />
   );
+}
 
-  }
-  
-export default MapView;
+export default MapView

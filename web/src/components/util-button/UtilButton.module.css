@@ -1,0 +1,20 @@
+.iconContainer {
+    cursor: pointer;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    padding: 1rem;
+    background-color: var(--brand-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+.iconContainer .authIcon {
+    position: relative;
+    left: 2px;
+}
+.iconContainer:hover {
+    filter: brightness(80%);
+}

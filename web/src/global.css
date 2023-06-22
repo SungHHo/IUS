@@ -1,19 +1,23 @@
-@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
-
 :root {
-    --brand-color1: #9D3121;
-
-    --navbar-height: 18vh;
-    --navbar-icon-size: 7vh;
-    --bottom-list-height: 6.5vh;
-
-    --animation-duration: 500ms;
+    --brand-color: #9D3121;
+    --gray-1: #F9F9F9;
+    --gray-2: #9F9F9F;
+    --yellow: #FFAA2C;
+    --red: #A51905;
+    
+    --max-width: 640px;
 }
 * {
-    font-family: "Noto Sans KR";
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+}
+
+#root {
+    width: 100%;
+    max-width: var(--max-width);
+    margin: auto;
+    font-family: 'Roboto', sans-serif;
 }
 li {
     display: block;
