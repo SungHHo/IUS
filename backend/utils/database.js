@@ -1,7 +1,7 @@
 const { MongoClient } = require("mongodb");
 
 class MongoDB {
-    static url = "mongodb://rootacc:wWhvL2SzqSnYd3qIZXoqTM1ig5J8lMYhZlBRFddzEyrIJvALQW132oylqJdDvMv2hVb2tIsaKpnbACDblvcr3Q==@rootacc.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&replicaSet=globaldb&maxIdleTimeMS=120000&appName=@rootacc@";
+    static url = process.env.DB_URL;
     
     static client = new MongoClient(this.url, { useNewUrlParser: true, useUnifiedTopology: true });
     static db = null;
@@ -14,58 +14,25 @@ class MongoDB {
             this.db = this.client.db("db");
             // const collection = this.db.collection("restaurant");
             
+
+            const collection = this.db.collection("restaurant");
+
             // const doc = {
-            //     name: "IUS RES",
-            //     address: "대구시 머시기 머시기 머시기",
-            //     comments: [
-            //         {
-            //             username: "찬욱",
-            //             comment: "존나게 맛없어요 씨발"
-            //         },
-            //         {
-            //             username: "test",
-            //             comment: "존나게 맛없어요 씨발123123"
-            //         },
-            //         {
-            //             username: "test2",
-            //             comment: "맛있어요"
-            //         },
-            //         {
-            //             username: "test3",
-            //             comment: "냄새가 존나 구려요"
-            //         }
-            //     ],
-            //     star: 1,
-            //     imgs: []
+            //     name: "낙원순두부",
+            //     phone: "012-3456-7890",
+            //     address: "대구광역시 북구 유통단지로8길",
+            //     comments: [],
+            //     img: "https://recipe1.ezmember.co.kr/cache/recipe/2021/03/20/666b1105eefd06eb1f924432cbaf3ecc1.jpg",
+            //     x: 35.9071971,
+            //     y: 128.610,
+            //     star: 0
             // };
 
-            // const doc2 = {
-            //     name: "IUS 매장",
-            //     address: "대구시 머시기 머시기 머시기",
-            //     comments: [
-            //         {
-            //             username: "찬욱",
-            //             comment: "존나게 맛있어요 씨발"
-            //         },
-            //         {
-            //             username: "test",
-            //             comment: "존나게 맛없어요 씨발123123"
-            //         },
-            //         {
-            //             username: "test2",
-            //             comment: "맛있어요"
-            //         },
-            //         {
-            //             username: "test3",
-            //             comment: "냄새가 존나 구려요"
-            //         }
-            //     ],
-            //     star: 1,
-            //     imgs: []
-            // };
+            // await collection.insertOne(doc);
 
-            // const collection = this.db.collection("restaurant");
-            
+            // console.log(await collection.find().toArray());
+
+            // await collection.updateOne({name: "식육식당"}, {$set: {y: 128.6145}})
 
             // // remove all data
             // await collection.deleteMany({});
@@ -104,29 +71,11 @@ class MongoDB {
     }
     
     static async addData(collectionName, json) {
-        try {
-            if (!this.db)
-                throw "There are not able database server!";
+        if (!this.db)
+            throw "There are not able database server!";
 
-            const collection = this.db.collection(collectionName);
-            collection.insertOne(json);
-        } catch (err) {
-            console.log("---------- Error stacks ----------");
-            console.log(err);
-        }
-    }
-
-    static async updateData(collectionName, json, replaced) {
-        try {
-            if (!this.db)
-                throw "There are not able database server!";
-            
-            const collection = this.db.collection(collectionName);
-            await collection.updateMany(json, replaced);
-        } catch (err) {
-            console.log("---------- Error stacks ----------");
-            console.log(err);
-        }
+        const collection = this.db.collection(collectionName);
+        collection.insertOne(json);
     }
 };
 
