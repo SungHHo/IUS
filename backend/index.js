@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(express.static(__dirname + "/public"));
 
 const api_router = require("./express_utils/api");
-app.use("/api/", api_router);
+app.use("/api", api_router);
 
 app.listen(PORT, () => {
     console.info("http://localhost:" + PORT);

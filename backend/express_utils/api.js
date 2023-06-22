@@ -8,11 +8,11 @@ const login = require("./api/login");
 const register = require("./api/register");
 const add_review = require("./api/add_review");
 
-router.post(login.route, login.func);
-router.post(register.route, register.func);
-router.post(add_review.route, middleware, add_review.func);
+router.post("/" + login.route, login.func);
+router.post("/" + register.route, register.func);
+router.post("/" + add_review.route, middleware, add_review.func);
 
-router.post(get_near_restaurant.route, get_near_restaurant.func);
+router.post("/" + get_near_restaurant.route, get_near_restaurant.func);
 
 // TODO
 
