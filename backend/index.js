@@ -26,16 +26,16 @@ app.get("*", (req, res) => {
 const connectToDB = async () => {
     await MongoDB.connect();
 
-    await MongoDB.updateData("restaurant", {
-        name: "식육식당"
-    }, {
-        $push: {
-            comments: {
-                user_id: "testuser",
-                comment: "말도안되게 맛있다"
-            }
-        }
-    });
+    // await MongoDB.updateData("restaurant", {
+    //     name: "식육식당"
+    // }, {
+    //     $push: {
+    //         comments: {
+    //             user_id: "testuser",
+    //             comment: "말도안되게 맛있다"
+    //         }
+    //     }
+    // });
 };
 connectToDB();
 
