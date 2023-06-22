@@ -1,4 +1,5 @@
 cd ./web
+rm -rf ../backend/public
 npm install
 npm run build
 
