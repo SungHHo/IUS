@@ -1,3 +1,6 @@
 cd ./web
 npm install
-npm run build && mv -r ./build/* ../backend/public/
+npm run build
+
+sleep 3s
+mv ./build/* ../backend/public/
