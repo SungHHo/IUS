@@ -26,7 +26,7 @@ module.exports = {
                 msg: "NOT EXISTS"
             });
         } else {
-            return res.json(jwt.sign(user));
+            return res.json(jwt.sign(user[0]));
         }
     }
 };
