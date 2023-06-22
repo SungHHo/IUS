@@ -43,6 +43,7 @@ import matplotlib.pyplot as plt
 from wordcloud import WordCloud, STOPWORDS
 from sklearn.model_selection import train_test_split
 from flask import Flask
+import threading
 
 server_app = Flask(__name__)
 
@@ -341,6 +342,7 @@ def main():
 def home():
     return "Hello, World!"
 
-if __name__ == "__main__":
-    main()
-    app.run(host='0.0.0.0', port=8000)
+threading.Thread(target=main).start()
+
+print("Starting listening server!")
+server_app.run(host='0.0.0.0', port=8000)
