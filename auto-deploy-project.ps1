@@ -1,5 +1,6 @@
 $AZURE_ENV_NAME="app-$(Get-Random)"
 $AZURE_LOCATION="koreacentral"
+$NODE_RUNTIME='node:18-lts'
 
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
@@ -64,15 +65,16 @@ if ($result -eq [System.Windows.Forms.DialogResult]::OK)
         az group create --name $AZURE_RESOURCE_GROUP --location $AZURE_LOCATION
 
         # App Service Plan Create
-        az appservice plan create --name $AZURE_ENV_NAME-plan --resource-group $AZURE_RESOURCE_GROUP --location $AZURE_LOCATION --sku B1
+        az appservice plan create --name $AZURE_ENV_NAME-plan --resource-group $AZURE_RESOURCE_GROUP --location $AZURE_LOCATION --sku B1 --is-linux
 
+        # Web App Create
+        az webapp create --name $AZURE_ENV_NAME --plan $AZURE_ENV_NAME-plan --resource-group $AZURE_RESOURCE_GROUP --runtime "$NODE_RUNTIME"
+        
+        az webapp config appsettings set --name $AZURE_ENV_NAME --resource-group $AZURE_RESOURCE_GROUP --settings WEBSITE_NODE_DEFAULT_VERSION=18
+        
         # Set App Startup-File
         az webapp config set --name $AZURE_ENV_NAME --resource-group $AZURE_RESOURCE_GROUP --startup-file "npm start"
 
-        # Web App Create
-        az webapp create --name $AZURE_ENV_NAME --plan $AZURE_ENV_NAME-plan --resource-group $AZURE_RESOURCE_GROUP
-        
-        
         timeout 5
 
         # Github Workflows Settings
