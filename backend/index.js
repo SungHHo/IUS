@@ -10,7 +10,7 @@ const MongoDB = require("./utils/database");
 app.use(express.json());
 app.use(express.static(__dirname + "/public"));
 
-const api_router = require("./express/api");
+const api_router = require("./express_utils/api");
 app.use(api_router);
 
 app.listen(PORT, () => {
