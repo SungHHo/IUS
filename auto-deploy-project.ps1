@@ -1,6 +1,10 @@
 $AZURE_ENV_NAME="app-$(Get-Random)"
+$AZURE_ENV_NAME_PYTHON="ai-$(Get-Random)"
+
 $AZURE_LOCATION="koreacentral"
+
 $NODE_RUNTIME='node:18-lts'
+$PYTHON_RUNTIME='python:3.10'
 
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
@@ -64,6 +68,7 @@ if ($result -eq [System.Windows.Forms.DialogResult]::OK)
         az login
         az group create --name $AZURE_RESOURCE_GROUP --location $AZURE_LOCATION
 
+        # Setup Node.js
         # App Service Plan Create
         az appservice plan create --name $AZURE_ENV_NAME-plan --resource-group $AZURE_RESOURCE_GROUP --location $AZURE_LOCATION --sku B1 --is-linux
 
@@ -75,14 +80,30 @@ if ($result -eq [System.Windows.Forms.DialogResult]::OK)
         # Set App Startup-File
         az webapp config set --name $AZURE_ENV_NAME --resource-group $AZURE_RESOURCE_GROUP --startup-file "npm start"
 
-        timeout 5
-
         # Github Workflows Settings
-        az webapp deployment list-publishing-profiles --name $AZURE_ENV_NAME --resource-group $AZURE_RESOURCE_GROUP --xml > publish_profile.xml
+        az webapp deployment list-publishing-profiles --name $AZURE_ENV_NAME --resource-group $AZURE_RESOURCE_GROUP --xml > publish_profile_node.xml
 
         gh auth login
         gh secret set AZURE_APP_NAME --repo $GITHUB_ID/IUS --body $AZURE_ENV_NAME
-        cat .\publish_profile.xml | gh secret set AZURE_WEBAPP_PUBLISH_PROFILE --repo $GITHUB_ID/IUS
+        cat .\publish_profile_node.xml | gh secret set AZURE_WEBAPP_PUBLISH_PROFILE --repo $GITHUB_ID/IUS
+
+        # Setup Python
+        # App Service Plan Create
+        az appservice plan create --name $AZURE_ENV_NAME_PYTHON-plan --resource-group $AZURE_RESOURCE_GROUP --location $AZURE_LOCATION --sku B1 --is-linux
+
+        # Web App Create
+        az webapp create --name $AZURE_ENV_NAME_PYTHON --plan $AZURE_ENV_NAME_PYTHON-plan --resource-group $AZURE_RESOURCE_GROUP --runtime "$PYTHON_RUNTIME"
+        
+        az webapp config appsettings set --name $AZURE_ENV_NAME_PYTHON --resource-group $AZURE_RESOURCE_GROUP --settings WEBSITE_NODE_DEFAULT_VERSION=18
+        
+        # Set App Startup-File
+        az webapp config set --name $AZURE_ENV_NAME_PYTHON --resource-group $AZURE_RESOURCE_GROUP --startup-file "py main.py"
+
+        # Github Workflows Settings
+        az webapp deployment list-publishing-profiles --name $AZURE_ENV_NAME_PYTHON --resource-group $AZURE_RESOURCE_GROUP --xml > publish_profile_python.xml
+
+        gh secret set AZURE_APP_NAME_PYTHON --repo $GITHUB_ID/IUS --body $AZURE_ENV_NAME_PYTHON
+        cat .\publish_profile_python.xml | gh secret set AZURE_WEBAPP_PUBLISH_PROFILE_PYTHON --repo $GITHUB_ID/IUS
         pause
     }
 }
