@@ -18,7 +18,7 @@ module.exports = {
         let user = await database.getData("accounts", {
             user_id: id,
             user_pw: crypter(id, pw)
-        }).toArray();
+        });
 
         if (user.length == 0) {
             return res.json({

@@ -22,7 +22,7 @@ function toRadians(degree) {
 }
 
 module.exports = {
-    route: "get_near_restaurant",
+    route: "restaurant",
     func: async (req, res) => {
         let x = req.body.x;
         let y = req.body.y;
