@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react'
-import Auth from './auth/Auth';
 
 import "../styles/SideBar.css";
 
@@ -21,16 +20,11 @@ function SideBar ({ openSideBar }) {
       animate();
     });
 
-    const openAuth = () => {
-      const authComponent = <Auth />;
-      setAuth(authComponent);
-    }
-
     return (
       <section ref={sideBarRef} id='sidebar-container'>
         <div className='background'></div>
         <ul >
-          <li className='signIn' onClick={openAuth}>sign in</li>
+          <li className='signIn'>sign in</li>
         </ul>
 
         {auth ?? <></>}
