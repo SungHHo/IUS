@@ -66,8 +66,12 @@ if ($result -eq [System.Windows.Forms.DialogResult]::OK)
         # App Service Plan Create
         az appservice plan create --name $AZURE_ENV_NAME-plan --resource-group $AZURE_RESOURCE_GROUP --location $AZURE_LOCATION --sku B1
 
+        # Set App Startup-File
+        az webapp config set --name $AZURE_ENV_NAME --resource-group $AZURE_RESOURCE_GROUP --startup-file "npm start"
+
         # Web App Create
         az webapp create --name $AZURE_ENV_NAME --plan $AZURE_ENV_NAME-plan --resource-group $AZURE_RESOURCE_GROUP
+        
         
         timeout 5
 
